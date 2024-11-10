@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="orders_main">
+    {% if orders %}
+    {% for order in orders %}
+    <div class="order_p">
+        <img src="{{order.product.image.url}}" alt="">
+        <div class="order_t">
+            <h2>{% if lang == "uz" %}{{order.product.title_uz}}{% elif lang == "ru" %}{{order.product.title_ru}}{% elif lang == "en" %}{{order.product.title_en}}{% endif %} </h2>
+            <h2>{{order.product.price}} <span>{% if lang == "uz" %}so'm{% elif lang == "ru" %}сум{% elif lang == "en" %}sum{% endif %}</span></h2>
+        </div>
+        {% if lang == "uz" %}
+        <div class="erfbfu">
+            <h2>Buyurtma turi: <span>{% if order.address %}Yetkazib berish{% else %}Olib ketish{% endif %}</span></h2>
+            <h2>Manzil: <span>{% if order.address %}{{order.address}}{% elif order.branch.address %}{{order.branch.address}}{% else %}{{order.branch.name}}{% endif %}</span></h2>
+        </div>
+        <div class="erjfhaeu">
+            <h2>Sana: <span>{{order.created_at}}</span></h2>
+            <h2>Qancha olingan: <span>{{order.count}} ta</span></h2>
+        </div>
+        {% elif lang == "ru" %}
+        <div class="erfbfu">
+            <h2>Тип заказа: <span>{% if order.address %}Доставка{% else %}Еда на вынос{% endif %}</span></h2>
+            <h2>Адрес: <span>{% if order.address %}{{order.address}}{% elif order.branch.address %}{{order.branch.address}}{% else %}{{order.branch.name}}{% endif %}</span></h2>
+        </div>
+        <div class="erjfhaeu">
+            <h2>Дата: <span>{{order.created_at}}</span></h2>
+            <h2>Сколько было взято: <span>{{order.count}}</span></h2>
+        </div>
+        {% elif lang == "en" %}
+        <div class="erfbfu">
+            <h2>Order type: <span>{% if order.address %}Delivery{% else %}Take away{% endif %}</span></h2>
+            <h2>Address: <span>{% if order.address %}{{order.address}}{% elif order.branch.address %}{{order.branch.address}}{% else %}{{order.branch.name}}{% endif %}</span></h2>
+        </div>
+        <div class="erjfhaeu">
+            <h2>The date: <span>{{order.created_at}}</span></h2>
+            <h2>How much was taken: <span>{{order.count}}</span></h2>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    {% if lang == "uz" %}
+    <h3>Buyurtmalar topilmadi</h3>
+    {% elif lang == "ru" %}
+    <h3>Buyurtmalar topilmadi</h3>
+    {% elif lang == "en" %}
+    <h3>Buyurtmalar topilmadi</h3>
+    {% endif %}
+    {% endif %}
+</main>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}

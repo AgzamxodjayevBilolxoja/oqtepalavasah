@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="branch_menu">
+    <div class="div">
+        {% if lang == "uz" %}
+        <h1>Filiallar</h1>
+        <div class="buttons">
+            <button id="show-branches" class="branch_btn active_btn" onclick="BranchButton(this)">Ro'yxat</button>
+            <button id="show-map" class="branch_btn" onclick="BranchButton(this)">Xarita</button>
+        </div>
+        {% elif lang == "ru" %}
+        <h1>Филиалы</h1>
+        <div class="buttons">
+            <button id="show-branches" class="branch_btn active_btn" onclick="BranchButton(this)">Список</button>
+            <button id="show-map" class="branch_btn" onclick="BranchButton(this)">Карта</button>
+        </div>
+        {% elif lang == "en" %}
+        <h1>Branches</h1>
+        <div class="buttons">
+            <button id="show-branches" class="branch_btn active_btn" onclick="BranchButton(this)">List</button>
+            <button id="show-map" class="branch_btn" onclick="BranchButton(this)">Map</button>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<main class="branches">
+    <div id="branches-list">
+        {% for branch in branches %}
+        <div class="branch">
+            <div class="top_branch">
+                <div class="top_left">
+                    <img class="branch_icon" src="{% static 'image/icons/icon1.svg' %}" alt="">
+                    <div class="branch_text">
+                        {% if lang == "uz" %}
+                        {% if branch.address_uz %}
+                        <h3 class="address">{{branch.name_uz}}<br><span class="span">{{branch.address_uz}}</span></h3>
+                        {% else %}
+                        <h3 class="address">{{branch.name_uz}}<h3>
+                                {% endif %}
+                        {% elif lang == "ru" %}
+                        {% if branch.address_ru %}
+                        <h3 class="address">{{branch.name_ru}}<br><span class="span">{{branch.address_ru}}</span></h3>
+                        {% else %}
+                        <h3 class="address">{{branch.name_ru}}<h3>
+                                {% endif %}
+                        {% elif lang == "en" %}
+                        {% if branch.address_en %}
+                        <h3 class="address">{{branch.name_en}}<br><span class="span">{{branch.address_en}}</span></h3>
+                        {% else %}
+                        <h3 class="address">{{branch.name_en}}<h3>
+                                {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="time2">{% if lang == "uz" %}Restoran {{branch.time2}} da yopiladi{% elif lang == "ru" %}Ресторан закрывается в {{branch.tim2}}.{% elif lang == "en" %}The restaurant closes at {{branch.time2}}{% endif %}</h3>
+            </div>
+            <div class="bottom_branch">
+                <div class="time1">
+                    <span class="span">{% if lang == "uz" %}Ish vaqti{% elif lang == "ru" %}Рабочее время{% elif lang == "en" %}Working time{% endif %}</span>
+                    <h3 style="font-size: 15px;">{{branch.time1}}</h3>
+                </div>
+                <div class="phone">
+                    <span class="span">{% if lang == "uz" %}Telefon{% elif lang == "ru" %}Телефон{% elif lang == "en" %}Phone{% endif %}</span>
+                    <h3>{{branch.phone}}</h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="map" style="display: none;">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d53577566.92750203!2d-27.501184000000002!3d34.953722!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sus!4v1730016142509!5m2!1sru!2sus"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</main>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/branch.js' %}"></script>
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}

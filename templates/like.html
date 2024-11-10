@@ -1,0 +1,86 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="like_main">
+    {% if lang == "uz" %}
+    <h1 class="h11">Yoqganlar</h1>
+    {% elif lang == "ru" %}
+    <h1 class="h11">Понравшисые</h1>
+    {% elif lang == "en" %}
+    <h1 class="h11">Wishlist</h1>
+    {% endif %}
+    {% if products %}
+    {% for p in products %}
+    {% if lang == "uz" %}
+    <div class="product" style="margin-bottom: 25px;">
+        <a href="{% url 'add_like2' p.id %}" class="like">
+            <img style="width: 35px;" class="like-icon" src="{% static 'image/icons/icon11.svg' %}" alt="">
+                </a>
+        <img src="{{p.image.url}}" alt="">
+        <h3>{{p.title_uz}}</h3>
+        <h4><span>{{p.price}}</span> so'm</h4>
+        <button onclick="toggleCart(this, 'uz')" data-id="{{ p.id }}">
+            {% if p.id in cart %}
+            Savatdan olib tashlash
+            {% else %}
+            Savatga qo'shish
+            {% endif %}
+        </button>
+    </div>
+    {% elif lang == "ru" %}
+    <div class="product" style="margin-bottom: 25px;">
+        <a href="{% url 'add_like2' p.id %}" class="like">
+            <img style="width: 35px;" class="like-icon"
+                src="{% static 'image/icons/icon11.svg' %}"
+                alt="">
+        </a>
+        <img src="{{p.image.url}}" alt="">
+        <h3>{{p.title_ru}}</h3>
+        <h4><span>{{p.price}}</span> сум</h4>
+        <button onclick="toggleCart(this, 'ru')" data-id="{{ p.id }}">
+            {% if p.id in cart %}
+            Добавить в корзину
+            {% else %}
+            Убрать из корзины
+            {% endif %}
+        </button>
+    </div>
+    {% elif lang == "en" %}
+    <div class="product" style="margin-bottom: 25px;">
+        <a href="{% url 'add_like2' p.id %}" class="like">
+            <img style="width: 35px;" class="like-icon" src="{% static 'image/icons/icon11.svg' %}" alt="">
+                </a>
+        <img src="{{p.image.url}}" alt="">
+        <h3>{{p.title_en}}</h3>
+        <h4><span>{{p.price}}</span> sum</h4>
+        <button onclick="toggleCart(this, 'en')" data-id="{{ p.id }}">
+            {% if p.id in cart %}
+            Add to Cart
+            {% else %}
+            Remove from Cart
+            {% endif %}
+        </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% if lang == "uz" %}
+    <h2 class="no_likes">Kechirasiz, siz yoqganlarni tanlamagansiz. <span><a style="color: blue;"
+                href="{% url 'home' %}">Menyu ga o'tish</a></span></h2>
+    {% elif lang == "ru" %}
+    <h2 class="no_likes">Извините, вы не выбрали избранное. <span><a style="color: blue;"
+                href="{% url 'home' %}">Перейти в меню</a></span></h2>
+    {% elif lang == "en" %}
+    <h2 class="no_likes">Sorry, you did not select favorites. <span><a style="color: blue;" href="{% url 'home' %}">Go
+                to menu</a></span></h2>
+    {% endif %}
+    {% endif %}
+</main>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/add_to_cart.js' %}"></script>
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}

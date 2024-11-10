@@ -1,0 +1,60 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    {% if lang == "uz" %}
+    <h1>Kontaktlar</h1>
+    <div>
+        <img src="{% static 'image/contact_image.png' %}" alt="">
+        <div class="qrcode">
+            <img src="{% static 'image/contact_qr_code.png' %}" alt="">
+            <h3>Izoh qoldiring yoki Telegramda savol bering</h3>
+            <a target="_blank" href="https://t.me/Oqtepalavash_TM" class="h3">@Oqtepalavash_TM</a>
+        </div>
+    </div>
+
+    <h2>Yagona aloqa markazi</h2>
+    <a href="tel:+998781500030">+998 78 150 00 30</a>
+    <h2>Telegram bot</h2>
+    <a href="https://t.me/oqtepalavash_bot" target="_blank">t.me/oqtepalavash_bot</a>
+    {% elif lang == "ru" %}
+    <h1>Контакты</h1>
+    <div>
+        <img src="{% static 'image/contact_image.png' %}" alt="">
+        <div class="qrcode">
+            <img src="{% static 'image/contact_qr_code.png' %}" alt="">
+            <h3>Оставьте отзыв или задайте вопрос в Telegram</h3>
+            <a target="_blank" href="https://t.me/Oqtepalavash_TM" class="h3">@Oqtepalavash_TM</a>
+        </div>
+    </div>
+
+    <h2>Единый колл-центр</h2>
+    <a href="tel:+998781500030">+998 78 150 00 30</a>
+    <h2>Телеграмм бот</h2>
+    <a href="https://t.me/oqtepalavash_bot" target="_blank">t.me/oqtepalavash_bot</a>
+    {% elif lang == "en" %}
+    <h1>Contacts</h1>
+    <div>
+        <img src="{% static 'image/contact_image.png' %}" alt="">
+        <div class="qrcode">
+            <img src="{% static 'image/contact_qr_code.png' %}" alt="">
+            <h3>Leave a comment or ask questions on Telegram</h3>
+            <a target="_blank" href="https://t.me/Oqtepalavash_TM" class="h3">@Oqtepalavash_TM</a>
+        </div>
+    </div>
+
+    <h2>Call center</h2>
+    <a href="tel:+998781500030">+998 78 150 00 30</a>
+    <h2>Telegram bot</h2>
+    <a href="https://t.me/oqtepalavash_bot" target="_blank">t.me/oqtepalavash_bot</a>
+    {% endif %}
+</main>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}

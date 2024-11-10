@@ -1,0 +1,47 @@
+{% load static %}
+
+<footer>
+    <hr>
+    <nav class="footer_nav">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'image/logo2.png' %}" alt="">
+        </a>
+        <ul>
+            {% if lang == "uz" %}
+            <li><a href="{% url 'home' %}">Menyu</a></li>
+            <li><a href="{% url 'about' %}">Biz haqimizda</a></li>
+            <li><a href="{% url 'branches' %}">Filiallar</a></li>
+            <li><a href="{% url 'contacts' %}">Kontaktlar</a></li>
+            {% elif lang == "ru" %}
+            <li><a href="{% url 'home' %}">Меню</a></li>
+            <li><a href="{% url 'about' %}">О нас</a></li>
+            <li><a href="{% url 'branches' %}">Филиалы</a></li>
+            <li><a href="{% url 'contacts' %}">Контакты</a></li>
+            {% elif lang == "en" %}
+            <li><a href="{% url 'home' %}">Menu</a></li>
+            <li><a href="{% url 'about' %}">About us</a></li>
+            <li><a href="{% url 'branches' %}">branches</a></li>
+            <li><a href="{% url 'contacts' %}">Contacts</a></li>
+            {% endif %}
+        </ul>
+        <div class="contacts">
+            <a href="https://t.me/oqtepalavash_bot" target="_blank" class="telegram">
+                <img src="{% static 'image/icons/icon5.svg' %}" alt="">
+                <h3>Telegram</h3>
+            </a>
+            <a href="tel:+998781500030" target="_blank" class="phone">
+                <img src="{% static 'image/icons/icon6.svg' %}" alt="">
+                <h3>+998 78 150 00 30</h3>
+            </a>
+            <a href="https://www.instagram.com/oqtepalavashuz/" target="_blank" class="telegram">
+                <img src="{% static 'image/icons/icon7.svg' %}" alt="">
+                <h3>Instagram</h3>
+            </a>
+        </div>
+    </nav>
+    <hr class="hr">
+    <div class="end_site">
+        <h3>©OQTEPA LAVASH</h3>
+        <h3>FINTECH PLATFORMS</h3>
+    </div>
+</footer>

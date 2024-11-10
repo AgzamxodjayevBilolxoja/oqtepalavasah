@@ -1,0 +1,130 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="ch_b">
+    {% if lang == "uz" %}
+    <h2 class="h222">Buyurtma berish turini tanlang.</h2>
+    {% elif lang == "ru" %}
+    <h2 class="h222">Выберите тип заказа.</h2>
+    {% elif lang == "en" %}
+    <h2 class="h222">Choose the type of order.</h2>
+    {% endif %}
+    <div class="left_b">
+        {% if lang == "uz" %}
+        <h2>Yetkazib berish</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="delivery" placeholder="Manzilingizni kiritng...">
+            <button type="submit">Tanlash</button>
+        </form>
+        {% elif lang == "ru" %}
+        <h2>Доставка</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="delivery" placeholder="Введите свой адрес...">
+            <button type="submit">Выбирать</button>
+        </form>
+        {% elif lang == "en" %}
+        <h2>Delivery</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="delivery" placeholder="Enter your address...">
+            <button type="submit">Choose</button>
+        </form>
+        {% endif %}
+    </div>
+    <div class="right_b">
+        {% if lang == "uz" %}
+        <h2>Olib ketish</h2>
+        <input class="qwertyuiop" type="text" id="searchbInput" name="pickup" placeholder="Manzilni qidiring...">
+        <button onclick="search2()"
+            style="width: 15%; margin-left: 20px; background-color: red; color: white; border: none; border-radius: 5px; height: 45px;">Qidirish</button>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="branches2">
+                {% for branch in branches %}
+                <a href="{% url 'choose_branch2' branch.id %}"
+                    class="branch2 {% if branch_id == branch.id %}active_branch{% endif %}">
+                    <div class="toppp">
+                        <img src="{% static 'image/icons/icon1.svg' %}" alt="">
+                        <div class="h4_t">
+                            <h4>{{ branch.name_uz }}</h4>
+                            {% if branch.address_uz %}
+                            <h4 class="h444444">{{ branch.address_uz }}</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% if forloop.counter != branches.count %}
+                <hr class="hrr">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <button class="asdfghjkl" type="submit">Tanlash</button>
+        </form>
+        {% elif lang == "ru" %}
+        <h2>Еда на вынос</h2>
+        <input class="qwertyuiop" type="text" id="searchbInput" name="pickup" placeholder="Найдите адрес...">
+        <button onclick="search2()"
+            style="width: 15%; margin-left: 20px; background-color: red; color: white; border: none; border-radius: 5px; height: 45px;">Поиск</button>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="branches2">
+                {% for branch in branches %}
+                <a href="{% url 'choose_branch2' branch.id %}"
+                    class="branch2 {% if branch_id == branch.id %}active_branch{% endif %}">
+                    <div class="toppp">
+                        <img src="{% static 'image/icons/icon1.svg' %}" alt="">
+                        <div class="h4_t">
+                            <h4>{{ branch.name_ru }}</h4>
+                            {% if branch.address_ru %}
+                            <h4 class="h444444">{{ branch.address_ru }}</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% if forloop.counter != branches.count %}
+                <hr class="hrr">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <button class="asdfghjkl" type="submit">Tanlash</button>
+        </form>
+        {% elif lang == "en" %}
+        <h2>Take away</h2>
+        <input class="qwertyuiop" type="text" id="searchbInput" name="pickup" placeholder="Search for an address...">
+        <button onclick="search2()"
+            style="width: 15%; margin-left: 20px; background-color: red; color: white; border: none; border-radius: 5px; height: 45px;">Search</button>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="branches2">
+                {% for branch in branches %}
+                <a href="{% url 'choose_branch2' branch.id %}"
+                    class="branch2 {% if branch_id == branch.id %}active_branch{% endif %}">
+                    <div class="toppp">
+                        <img src="{% static 'image/icons/icon1.svg' %}" alt="">
+                        <div class="h4_t">
+                            <h4>{{ branch.name_en }}</h4>
+                            {% if branch.address_en %}
+                            <h4 class="h444444">{{ branch.address_en }}</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% if forloop.counter != branches.count %}
+                <hr class="hrr">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <button class="asdfghjkl" type="submit">Tanlash</button>
+        </form>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}

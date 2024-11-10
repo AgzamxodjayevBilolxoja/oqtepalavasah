@@ -1,0 +1,254 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block add_product %}
+
+<div style="display: none;" id="add_product" class="add_product">
+    {% if not request.user.is_authenticated %}
+    <div class="qwerty">
+        <h2 id="x"><i class="fa-solid fa-xmark"></i></h2>
+        <h2 class="not">!</h2>
+        {% if lang == "uz" %}
+        <h3>Kechirasiz, siz mahsulotni savatchaga qo'sha olmaysiz. Savatga qo'shish uchun siz profilingizga kirishingiz
+            kerak.</h3>
+        <a href="{% url 'login' %}">
+            <button class="login_btn">Kirish</button>
+        </a>
+        {% elif lang == "ru" %}
+        <h3>К сожалению, вы не можете добавить товар в корзину. Вы должны войти в систему, чтобы добавить в корзину.
+        </h3>
+        <a href="{% url 'login' %}">
+            <button class="login_btn">Вход</button>
+        </a>
+        {% elif lang == "en" %}
+        <h3>Sorry, you cannot add the product to the cart. You must be logged in to add to cart.</h3>
+        <a href="{% url 'login' %}">
+            <button class="login_btn">Login</button>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock add_product %}
+
+
+{% block content %}
+
+<main>
+    <h1 style="text-align: center; font-size: 48px;">{% if lang == "uz" %}Menyu{% elif lang == "ru" %}Меню{% elif lang == "en" %}Menu{% endif %} </h1>
+    <div class="menu">
+        {% if lang == "uz" %}
+        <div class="catalog">
+            <div class="top_catalog">
+                <img src="{% static 'image/icons/icon4.svg' %}" alt="">
+                <h3>Katalog</h3>
+            </div>
+
+            {% for category in categories %}
+            <a href="{% url 'home' %}?category={{ category.en }}"
+                class="category-button {% if active_category == category.en %}active_category{% endif %}"
+                style="font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; margin: 0 auto;">
+                <img style="margin-right: 10px;" src="{{ category.img.url }}" alt="">{{ category.uz }}
+            </a>
+            {% endfor %}
+
+        </div>
+        {% elif lang == "ru" %}
+        <div class="catalog">
+            <div class="top_catalog">
+                <img src="{% static 'image/icons/icon4.svg' %}" alt="">
+                <h3>Каталог</h3>
+            </div>
+
+            {% for category in categories %}
+            <a href="{% url 'home' %}?category={{ category.en }}"
+                class="category-button {% if active_category == category.en %}active_category{% endif %}"
+                style="font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; margin: 0 auto;">
+                <img style="margin-right: 10px;" src="{{ category.img.url }}" alt="">{{ category.ru }}
+            </a>
+            {% endfor %}
+
+        </div>
+        {% elif lang == "en" %}
+        <div class="catalog">
+            <div class="top_catalog">
+                <img src="{% static 'image/icons/icon4.svg' %}" alt="">
+                <h3>Catalog</h3>
+            </div>
+
+            {% for category in categories %}
+            <a href="{% url 'home' %}?category={{ category.en }}"
+                class="category-button {% if active_category == category.en %}active_category{% endif %}"
+                style="font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; margin: 0 auto;">
+                <img style="margin-right: 10px;" src="{{ category.img.url }}" alt="">{{ category.en }}
+            </a>
+            {% endfor %}
+
+        </div>
+        {% endif %}
+        {% if products %}
+        {% if request.user.is_authenticated %}
+        <div class="products">
+            {% for product in products %}
+            {% if forloop.counter == 1 %}
+            {% if lang == "uz" %}
+            <h2>{{product.category.uz}}</h2>
+            {% elif lang == "ru" %}
+            <h2>{{product.category.ru}}</h2>
+            {% elif lang == "en" %}
+            <h2>{{product.category.en}}</h2>
+            {% endif %}
+            {% endif %}
+            {% if lang == "uz" %}
+            <div class="product">
+                <a class="like" href="#" data-id="{{ product.id }}" onclick="toggleHeart(this); return false;">
+                    <img style="width: 35px;" class="like-icon"
+                        src="{% if product.id in like %}{% static 'image/icons/icon11.svg' %}{% else %}{% static 'image/icons/icon10.svg' %}{% endif %}"
+                        alt="">
+                </a>
+
+
+                <a href="{% url 'product' product.id %}">
+                    <img src="{{ product.image.url }}" alt="">
+                </a>
+                <h3>{{ product.title_uz }}</h3>
+                <h4><span>{{ product.price }}</span> so'm</h4>
+
+
+                <button onclick="toggleCart(this, 'uz')" data-id="{{ product.id }}">
+                    {% if product.id in cart %}
+                    Savatdan olib tashlash
+                    {% else %}
+                    Savatga qo'shish
+                    {% endif %}
+                </button>
+            </div>
+            {% elif lang == "ru" %}
+            <div class="product">
+                <a class="like" href="#" data-id="{{ product.id }}" onclick="toggleHeart(this); return false;">
+                    <img style="width: 35px;" class="like-icon"
+                        src="{% if product.id in like %}{% static 'image/icons/icon11.svg' %}{% else %}{% static 'image/icons/icon10.svg' %}{% endif %}"
+                        alt="">
+                </a>
+
+                <a href="{% url 'product' product.id %}">
+                    <img src="{{ product.image.url }}" alt="">
+                </a>
+                <h3>{{ product.title_ru }}</h3>
+                <h4><span>{{ product.price }}</span> сум</h4>
+
+
+                <button onclick="toggleCart(this, 'ru')" data-id="{{ product.id }}">
+                    {% if product.id in cart %}
+                    Убрать из корзины
+                    {% else %}
+                    Добавить в корзину
+                    {% endif %}
+                </button>
+            </div>
+            {% elif lang == "en" %}
+            <div class="product">
+                <a class="like" href="#" data-id="{{ product.id }}" onclick="toggleHeart(this); return false;">
+                    <img style="width: 35px;" class="like-icon"
+                        src="{% if product.id in like %}{% static 'image/icons/icon11.svg' %}{% else %}{% static 'image/icons/icon10.svg' %}{% endif %}"
+                        alt="">
+                </a>
+
+                <a href="{% url 'product' product.id %}">
+                    <img src="{{ product.image.url }}" alt="">
+                </a>
+                <h3>{{ product.title_en }}</h3>
+                <h4><span>{{ product.price }}</span> sum</h4>
+
+
+                <button onclick="toggleCart(this, 'en')" data-id="{{ product.id }}">
+                    {% if product.id in cart %}
+                    Remove from Cart
+                    {% else %}
+                    Add to Cart
+                    {% endif %}
+                </button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="products">
+            {% for product in products %}
+            {% if forloop.counter == 1 %}
+            {% if lang == "uz" %}
+            <h2>{{product.category.uz}}</h2>
+            {% elif lang == "ru" %}
+            <h2>{{product.category.ru}}</h2>
+            {% elif lang == "en" %}
+            <h2>{{product.category.en}}</h2>
+            {% endif %}
+            {% endif %}
+            {% if lang == "uz" %}
+            <div class="product">
+
+
+                <a href="{% url 'product' product.id %}">
+                    <img src="{{ product.image.url }}" alt="">
+                </a>
+                <h3>{{ product.title_uz }}</h3>
+                <h4><span>{{ product.price }}</span> so'm</h4>
+
+
+                <button class="btn_0001">Savatga qo'shish</button>
+            </div>
+            {% elif lang == "ru" %}
+            <div class="product">
+
+                <a href="{% url 'product' product.id %}">
+                    <img src="{{ product.image.url }}" alt="">
+                </a>
+                <h3>{{ product.title_ru }}</h3>
+                <h4><span>{{ product.price }}</span> сум</h4>
+
+
+                <button class="btn_0001">Добавить в корзину</button>
+            </div>
+            {% elif lang == "en" %}
+            <div class="product">
+
+                <a href="{% url 'product' product.id %}">
+                    <img src="{{ product.image.url }}" alt="">
+                </a>
+                <h3>{{ product.title_en }}</h3>
+                <h4><span>{{ product.price }}</span> sum</h4>
+
+
+                <button class="btn_0001">Add to Cart</button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% else %}
+        <h2 style="text-align: center; margin-right: 500px; font-size: 30px; margin-top: 40px;">
+            {% if lang == "uz" %}
+            Mahsulotlar topilmadi
+            {% elif lang == "ru" %}
+            Товары не найдены
+            {% elif lang == "en" %}
+            No products found
+            {% endif %}
+        </h2>
+        {% endif %}
+    </div>
+</main>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/menu.js' %}"></script>
+<script src="{% static 'js/add_to_cart.js' %}"></script>
+<script src="{% static 'js/like.js' %}"></script>
+<script>
+    var csrf_token = "{{ csrf_token }}";
+</script>
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}

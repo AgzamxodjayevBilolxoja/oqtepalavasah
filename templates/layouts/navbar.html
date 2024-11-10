@@ -1,0 +1,220 @@
+{% load static %}
+
+<header>
+    <nav class="nav">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'image/logo2.png' %}" alt="Logo">
+        </a>
+
+        {% if lang == "uz" %}
+        <div class="center">
+            <div class="top">
+                <ul>
+                    <li><a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                            href="{% url 'home' %}">Menyu</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                            href="{% url 'about' %}">Biz
+                            haqimizda</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'branches' %}active{% endif %}"
+                            href="{% url 'branches' %}">Filiallar</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'contacts' %}active{% endif %}"
+                            href="{% url 'contacts' %}">Kontaktlar</a>
+                    </li>
+                </ul>
+                <a href="{% url 'cart' %}" class="acceptance">
+                    <img src="{% static 'image/icons/icon1.svg' %}" alt="Icon">
+                    <h5 class="h5">Yetkazib berish yoki olib... <span class="active1">Qabul qilish turini tanlang</span>
+                    </h5>
+                </a>
+                <button id="region" class="region">
+                    <img src="{% static 'image/icons/icon2.svg' %}" alt="Icon">
+                    <h5 style="text-align: start;">Hudud <span class="active1">{% if region == "tashkent" %}Toshkent{% elif region == "samarkand" %}Samarqand{% endif %}</span></h5>
+                </button>
+                <div class="regions" id="regions" style="display: none;">
+                    <button onclick="RegionUrl('tashkent')">Toshkent</button>
+                    <button onclick="RegionUrl('samarkand')">Samarqand</button>
+                </div>
+            </div>
+            <input type="text" name="query" id="searchInput" placeholder="Pishloqli tandir lavash..." class="search">
+            <button onclick="search()"
+                style="width: 60px; margin-left: 20px; background-color: red; color: white; border: none; border-radius: 5px;">Qidirish</button>
+        </div>
+        {% elif lang == "ru" %}
+        <div class="center">
+            <div class="top">
+                <ul>
+                    <li><a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                            href="{% url 'home' %}">Меню</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                            href="{% url 'about' %}">О нас</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'branches' %}active{% endif %}"
+                            href="{% url 'branches' %}">Филиалы</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'contacts' %}active{% endif %}"
+                            href="{% url 'contacts' %}">Контакты</a>
+                    </li>
+                </ul>
+                <a href="{% url 'cart' %}" class="acceptance">
+                    <img src="{% static 'image/icons/icon1.svg' %}" alt="Icon">
+                    <h5 class="h5">Доставка или еда на вынос <span class="active1">Выберите тип приема</span>
+                    </h5>
+                </a>
+                <button id="region" class="region">
+                    <img src="{% static 'image/icons/icon2.svg' %}" alt="Icon">
+                    <h5 style="text-align: start;">Регион <span class="active1">{% if region == "tashkent" %}Ташкент{% elif region == "samarkand" %}Самарканд{% endif %}</span></h5>
+                </button>
+                <div class="regions" id="regions" style="display: none;">
+                    <button onclick="RegionUrl('tashkent')">Ташкент</button>
+                    <button onclick="RegionUrl('samarkand')">Самарканд</button>
+                </div>
+            </div>
+            <input type="text" name="query" id="searchInput" placeholder="Сырный тандыр лаваш..." class="search">
+            <button onclick="search()"
+                style="width: 60px; margin-left: 20px; background-color: red; color: white; border: none; border-radius: 5px;">Поиск</button>
+        </div>
+        {% elif lang == "en" %}
+        <div class="center">
+            <div class="top">
+                <ul>
+                    <li><a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                            href="{% url 'home' %}">Menu</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                            href="{% url 'about' %}">About us</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'branches' %}active{% endif %}"
+                            href="{% url 'branches' %}">Branches</a>
+                    </li>
+                    <li><a class="{% if request.resolver_match.url_name == 'contacts' %}active{% endif %}"
+                            href="{% url 'contacts' %}">Contacts</a>
+                    </li>
+                </ul>
+                <a href="{% url 'cart' %}" class="acceptance" style="width: 180px;">
+                    <img src="{% static 'image/icons/icon1.svg' %}" alt="Icon">
+                    <h5 class="h5">Delivery or takeaway <span class="active1">Select the type of reception</span>
+                    </h5>
+                </a>
+                <button id="region" class="region">
+                    <img src="{% static 'image/icons/icon2.svg' %}" alt="Icon">
+                    <h5 style="text-align: start;">Region <span class="active1">{% if region == "tashkent" %}Tashkent{% elif region == "samarkand" %}Samarkand{% endif %}</span></h5>
+                </button>
+                <div class="regions" id="regions" style="display: none;">
+                    <button onclick="RegionUrl('tashkent')">Tashkent</button>
+                    <button onclick="RegionUrl('samarkand')">Samarkand</button>
+                </div>
+            </div>
+            <input type="text" name="query" id="searchInput" placeholder="Cheesy tandoori lavash..." class="search">
+            <button onclick="search()"
+                style="width: 60px; margin-left: 20px; background-color: red; color: white; border: none; border-radius: 5px;">Search</button>
+        </div>
+        {% endif %}
+
+        <div class="right">
+            {% if lang == "uz" %}
+            <button id="lang" class="lang">
+                <img class="flag" src="{% static 'image/icons/icon3.svg' %}" alt="">UZ
+                <i class="fa-solid fa-chevron-down" style="color: #E52D2B;"></i>
+            </button>
+            <div id="langs" style="display: none;" class="langs">
+                <button id="lang" onclick="addParamToUrl( 'uz')">
+                    <img class="flag" src="{% static 'image/icons/icon3.svg' %}" alt="">O'zbekcha
+                </button>
+                <button id="lang" onclick="addParamToUrl( 'ru')">
+                    <img class="flag" src="{% static 'image/icons/icon8.svg' %}" alt="">Русский
+                </button>
+                <button id="lang" onclick="addParamToUrl( 'en')">
+                    <img class="flag" src="{% static 'image/icons/icon9.svg' %}" alt="">English
+                </button>
+            </div>
+            {% elif lang == "ru" %}
+            <button id="lang" class="lang">
+                <img class="flag" src="{% static 'image/icons/icon8.svg' %}" alt="">РУ
+                <i class="fa-solid fa-chevron-down" style="color: #E52D2B;"></i>
+            </button>
+            <div id="langs" style="display: none;" class="langs">
+                <button id="lang" onclick="addParamToUrl( 'ru')">
+                    <img class="flag" src="{% static 'image/icons/icon8.svg' %}" alt="">Русский
+                </button>
+                <button id="lang" onclick="addParamToUrl( 'uz')">
+                    <img class="flag" src="{% static 'image/icons/icon3.svg' %}" alt="">O'zbekcha
+                </button>
+                <button id="lang" onclick="addParamToUrl( 'en')">
+                    <img class="flag" src="{% static 'image/icons/icon9.svg' %}" alt="">English
+                </button>
+            </div>
+            {% elif lang == "en" %}
+            <button id="lang" class="lang">
+                <img class="flag" src="{% static 'image/icons/icon9.svg' %}" alt="">EN
+                <i class="fa-solid fa-chevron-down" style="color: #E52D2B;"></i>
+            </button>
+            <div id="langs" style="display: none;" class="langs">
+                <button id="lang" onclick="addParamToUrl( 'en')">
+                    <img class="flag" src="{% static 'image/icons/icon9.svg' %}" alt="">English
+                </button>
+                <button id="lang" onclick="addParamToUrl( 'uz')">
+                    <img class="flag" src="{% static 'image/icons/icon3.svg' %}" alt="">O'zbekcha
+                </button>
+                <button id="lang" onclick="addParamToUrl( 'ru')">
+                    <img class="flag" src="{% static 'image/icons/icon8.svg' %}" alt="">Русский
+                </button>
+            </div>
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+            {% if lang == "uz" %}
+            <a href="{% url 'logout' %}"><button class="login">Chiqish</button></a>
+            {% elif lang == "ru" %}
+            <a href="{% url 'logout' %}"><button class="login">Выход</button></a>
+            {% elif lang == "en" %}
+            <a href="{% url 'logout' %}"><button class="login">Log out</button></a>
+            {% endif %}
+            {% else %}
+            {% if lang == "uz" %}
+            <a href="{% url 'login' %}"><button class="login">Kirish</button></a>
+            {% elif lang == "ru" %}
+            <a href="{% url 'login' %}"><button class="login">Вход</button></a>
+            {% elif lang == "en" %}
+            <a href="{% url 'login' %}"><button class="login">Login</button></a>
+            {% endif %}
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+            {% if lang == "uz" %}
+            <a href="{% url 'likes' %}">
+                <button class="likes">Yoqganlar</button>
+            </a>
+            <a href="{% url 'cart' %}">
+                <button class="cart">Savatcha</button>
+            </a>
+            {% elif lang == "ru" %}
+            <a href="{% url 'likes' %}">
+                <button class="likes">Понравшисые</button>
+            </a>
+            <a href="{% url 'cart' %}">
+                <button class="cart">Корзина</button>
+            </a>
+            {% elif lang == "en" %}
+            <a href="{% url 'likes' %}">
+                <button class="likes">Wishlist</button>
+            </a>
+            <a href="{% url 'cart' %}">
+                <button class="cart">Cart</button>
+            </a>
+            {% endif %}
+            {% else %}
+            {% if lang == "uz" %}
+            <button class="order btn_0001">Buyurtmani boshlash</button>
+            {% elif lang == "ru" %}
+            <button class="order btn_0001">Начать заказ</button>
+            {% elif lang == "en" %}
+            <button class="order btn_0001">Start order</button>
+            {% endif %}
+            {% endif %}
+        </div>
+    </nav>
+</header>

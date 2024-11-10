@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Oqtepa Lavash</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'image/logo1.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="login_body">
+
+    {% if messages %}
+    <div class="message-container">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="inputs">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if lang == "uz" %}
+            <label for="name">Ismingizni shu yerga kiriting</label>
+            <input type="text" placeholder="Ismingizni yozing..." name="name" id="name">
+
+            <label for="email">Elektron pochtani shu yerga kiriting</label>
+            <input type="email" placeholder="Email manzilingizni yozing..." name="email" id="email">
+            <a href="{% url 'register' %}">Akkauntingiz yo'qmi, unda yangi yarating</a>
+
+            <button type="submit" class="enter">Kirish</button>
+            <a href="{% url 'home' %}"><button type="button" class="enter back">Ortga</button></a>
+            {% elif lang == "ru" %}
+            <label for="name">Введите свое имя здесь</label>
+            <input type="text" placeholder="Напишите свое имя..." name="name" id="name">
+
+            <label for="email">Введите свой адрес электронной почты здесь</label>
+            <input type="email" placeholder="Введите адрес электронной почты..." name="email" id="email">
+            <a href="{% url 'register' %}">Если у вас нет учетной записи, создайте новую</a>
+
+            <button type="submit" class="enter">Входить</button>
+            <a href="{% url 'home' %}"><button type="button" class="enter back">Назад</button></a>
+            {% elif lang == "en" %}
+            <label for="name">Enter your name here</label>
+            <input type="text" placeholder="Write your name..." name="name" id="name">
+
+            <label for="email">Enter your email here</label>
+            <input type="email" placeholder="Enter your email address..." name="email" id="email">
+            <a href="{% url 'register' %}">If you don't have an account, create a new one</a>
+
+            <button type="submit" class="enter">Enter</button>
+            <a href="{% url 'home' %}"><button type="button" class="enter back">Back</button></a>
+            {% endif %}
+        </form>
+    </div>
+
+    <script src="{% static 'js/messages.js' %}"></script>
+
+</body>
+
+</html>

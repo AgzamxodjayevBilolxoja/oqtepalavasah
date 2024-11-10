@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    {% if lang == "uz" %}
+    <h1>Kompaniya qahida</h1>
+    <img style="margin-top: 40px;" src="{% static 'image/about_image.png' %}" alt="">
+    <p class="about_p">
+        “Oqtepa lavash” fastfud kafelar tarmog‘i O‘zbekistonning jadal rivojlanayotgan bozorida faoliyat yuritib, aholi
+        o‘rtasida arzon tez
+        tayyorlanadigan taomlarga bo‘lgan talabni qondirishga qaratilgan.<br><br><br>
+        Menyuga pita nonining yanada muvozanatli variantlarini qo'shishdan tortib, faqat buyurtma qilingan holda
+        tayyorlanadigan yangi
+        cheeseburgerlarni taqdim etishgacha bo'lgan taomimizga ishtiyoqmandmiz. Biz har doim mijozlarimizga va
+        oziq-ovqatimizga sodiqligimizni
+        ko'rsatish yo'llarini topamiz.<br><br><br>
+        Bizning hikoyamiz 12 yildan ko'proq vaqt oldin, ikki aka-uka o'zlarining eski orzularini ro'yobga chiqarish,
+        ovqatlanish sohasida, ya'ni lavash
+        pishirishda eng yaxshi bo'lishni boshlaganlarida boshlangan. Xullas, 2010 yilda Oqtepa lavashining birinchi
+        filiali paydo bo‘ldi. Bugungi
+        kunga qadar O‘zbekiston bo‘ylab 55 dan ortiq tez ovqatlanish kafelari ochilib, 1500 dan ortiq xodim ish bilan
+        ta’minlangan.<br><br><br>
+        Bosh ofisimiz manzili: Toshkent sh., Olmazor tumani, Qorasaroy ko'chasi 2a</p>
+    {% elif lang == "ru" %}
+    <h1>О компании</h1>
+    <img style="margin-top: 40px;" src="{% static 'image/about_image.png' %}" alt="">
+    <p class="about_p">
+        Сеть кафе быстрого питания Oqtepa Lavash работает на быстрорастущем рынке Узбекистана и ориентирована на
+        удовлетворение спроса на доступную еду быстрого приготовления среди населения.<br><br><br>
+        Мы увлечены нашей едой, начиная от добавления в меню более сбалансированных вариантов наших лавашей, до подачи
+        свежих чизбургеров, которые готовятся только после поступления заказа. Мы всегда находим способы показать нашу
+        приверженность нашим клиентам и нашей еде.<br><br><br>
+        Наша история началась более 12 лет назад, когда два брата начали воплощать свою давнюю мечту, стать лучшими в
+        сфере общепита, а именно в готовке Лавашей. Так, в 2010 году появился первый филиал Oqtepa Lavash. На
+        сегодняшний день открыты более 55 кафе быстрого питания по всему Узбекистану и обеспечили работой более 1500
+        сотрудников.<br><br><br>
+        Адрес нашего головного офиса: Г. Ташкент, Алмазарский район, Ул. Карасарай, 2а</p>
+    {% elif lang == "en" %}
+    <h1>About company</h1>
+    <img style="margin-top: 40px;" src="{% static 'image/about_image.png' %}" alt="">
+    <p class="about_p">
+        Oqtepa Lavash, a chain of fast food cafes, operates in the rapidly growing market of Uzbekistan and is focused
+        on meeting the demand for affordable fast food among the population.<br><br><br>
+        We are passionate about our food, from adding more balanced variations of our pita bread to the menu, to serving
+        fresh cheeseburgers that are made only when ordered. We always find ways to show our commitment to our customers
+        and our food.<br><br><br>
+        Our story began more than 12 years ago, when two brothers began to realize their old dream, to become the best
+        in the field of catering, namely in cooking Lavash. So, in 2010, the first branch of Oqtepa Lavash appeared. To
+        date, more than 55 fast food cafes have been opened throughout Uzbekistan and have provided jobs for more than
+        1,500 employees.<br><br><br>
+        The address of our head office: Tashkent, Almazar district, st. Karasaray, 2a</p>
+    {% endif %}
+</main>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}

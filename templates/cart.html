@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <a href="{% url 'orders' %}">
+        <button class="orders">{% if lang == "uz" %}Buyurtmalarim{% elif lang == "ru" %}Мои заказы{% elif lang == "en" %}My orders{% endif %}</button>
+    </a>
+    <h1 class="carth1">{% if lang == "uz" %}Savatcha{% elif lang == "ru" %}Корзина{% elif lang == "en" %}Shopping cart{% endif %}</h1>
+    {% if products %}
+    {% for product in products %}
+    <div class="cart_p">
+        <img class="cimg" src="{{product.image.url}}" alt="">
+        <div class="centerc">
+            <h2>{% if lang == "uz" %}{{product.title_uz}}{% elif lang == "ru" %}{{product.title_ru}}{% elif lang == "en" %}{{product.title_en}}{% endif %}</h2>
+            <h2>{{product.price}}</h2>
+        </div>
+        <div class="counter">
+            <a href="{% url 'minus_count' product.id %}"><button><i class="fa-solid fa-minus fa-2x"></i></button></a>
+            {% for i in count %}
+            {% if i.product_id == product.id %}
+            <h3 id="t">{{i.count}}</h3>
+            {% endif %}
+            {% endfor %}
+            <a href="{% url 'plus_count' product.id %}"><button><i class="fa-solid fa-plus fa-2x"></i></button></a>
+        </div>
+        <a href="{% url 'add_to_cart3' product.id %}" style="font-size: 30px;"><i class="fa-solid fa-xmark"></i></a>
+    </div>
+    {% endfor %}
+    <a href="{% url 'choose_branch' %}">
+        <button class="aaaaa">{% if lang == "uz" %}Buyurtma berish{% elif lang == "ru" %}Разместить заказ{% elif lang == "en" %}Place an order{% endif %}</button>
+    </a>
+    {% else %}
+    {% if lang == "uz" %}
+    <h2 class="no_likes">Kechirasiz, siz savatchaga hech narsa qo'shmagansiz. <span><a style="color: blue;" href="{% url 'home' %}">Menyu ga o'tish</a></span></h2>
+    {% elif lang == "ru" %}
+    <h2 class="no_likes">К сожалению, вы ничего не добавили в корзину. <span><a style="color: blue;" href="{% url 'home' %}">Перейти в меню</a></span></h2>
+    {% elif lang == "en" %}
+    <h2 class="no_likes">Sorry, you have not added anything to the cart. <span><a style="color: blue;" href="{% url 'home' %}">Go to menu</a></span></h2>
+    {% endif %}
+    {% endif %}
+</main>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/lang.js' %}"></script>
+{% endblock js %}
