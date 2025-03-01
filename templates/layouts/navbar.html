@@ -175,11 +175,11 @@
             {% endif %}
             {% else %}
             {% if lang == "uz" %}
-            <a href="{% url 'login' %}"><button class="login">Kirish</button></a>
+            <a href="{% url 'auth' %}"><button class="login">Kirish</button></a>
             {% elif lang == "ru" %}
-            <a href="{% url 'login' %}"><button class="login">Вход</button></a>
+            <a href="{% url 'auth' %}"><button class="login">Вход</button></a>
             {% elif lang == "en" %}
-            <a href="{% url 'login' %}"><button class="login">Login</button></a>
+            <a href="{% url 'auth' %}"><button class="login">Login</button></a>
             {% endif %}
             {% endif %}
 

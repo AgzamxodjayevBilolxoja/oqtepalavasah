@@ -28,39 +28,26 @@
     </div>
     {% endif %}
 
-
-    <div class="inputs">
+    <div class="inputs">    
         <form action="" method="post">
             {% csrf_token %}
             {% if lang == "uz" %}
-            <label for="name">Yangi ism yarating</label>
-            <input type="text" placeholder="Ismingizni yozing..." name="name" id="name">
+            <label for="name">Emailga yuborilgan kodni yozing</label>
+            <input type="text" placeholder="kodni yozing..." name="code" id="name">
 
-            <label for="email">Yangi elektron pochta yarating</label>
-            <input type="email" placeholder="Email manzilingizni yozing..." name="email" id="email">
-            <a href="{% url 'login' %}">Akkauntingiz bormi, unda unga kiring</a>
-
-            <button type="submit" class="enter">Yaratish</button>
+            <button type="submit" class="enter">Jo'natish</button>
             <a href="{% url 'home' %}"><button type="button" class="enter back">Ortga</button></a>
             {% elif lang == "ru" %}
-            <label for="name">Создать новое имя</label>
-            <input type="text" placeholder="Напишите свое имя..." name="name" id="name">
+            <label for="name">Ведите код из емаила</label>
+            <input type="text" placeholder="Напишите код..." name="code" id="name">
 
-            <label for="email">Создать новое письмо</label>
-            <input type="email" placeholder="Введите адрес электронной почты..." name="email" id="email">
-            <a href="{% url 'login' %}">Если у вас есть учетная запись, войдите в систему</a>
-
-            <button type="submit" class="enter">Создать</button>
+            <button type="submit" class="enter">Отправить</button>
             <a href="{% url 'home' %}"><button type="button" class="enter back">Назад</button></a>
             {% elif lang == "en" %}
-            <label for="name">Create a new name</label>
-            <input type="text" placeholder="Write your name..." name="name" id="name">
+            <label for="name">Enter code in email</label>
+            <input type="text" placeholder="Write code..." name="code" id="name">
 
-            <label for="email">Create a new email</label>
-            <input type="email" placeholder="Enter your email address..." name="email" id="email">
-            <a href="{% url 'login' %}">If you have an account, log in</a>
-
-            <button type="submit" class="enter">Creat</button>
+            <button type="submit" class="enter">Submit</button>
             <a href="{% url 'home' %}"><button type="button" class="enter back">Back</button></a>
             {% endif %}
         </form>

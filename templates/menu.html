@@ -11,18 +11,18 @@
         {% if lang == "uz" %}
         <h3>Kechirasiz, siz mahsulotni savatchaga qo'sha olmaysiz. Savatga qo'shish uchun siz profilingizga kirishingiz
             kerak.</h3>
-        <a href="{% url 'login' %}">
+        <a href="{% url 'auth' %}">
             <button class="login_btn">Kirish</button>
         </a>
         {% elif lang == "ru" %}
         <h3>К сожалению, вы не можете добавить товар в корзину. Вы должны войти в систему, чтобы добавить в корзину.
         </h3>
-        <a href="{% url 'login' %}">
+        <a href="{% url 'auth' %}">
             <button class="login_btn">Вход</button>
         </a>
         {% elif lang == "en" %}
         <h3>Sorry, you cannot add the product to the cart. You must be logged in to add to cart.</h3>
-        <a href="{% url 'login' %}">
+        <a href="{% url 'auth' %}">
             <button class="login_btn">Login</button>
         </a>
         {% endif %}

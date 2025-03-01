@@ -7,6 +7,18 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.templatetags.static import static
+import random
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+def send_email(email, code):
+    subject = "Kod, Код, Code"
+    message = f"{code}"
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+
+    send_mail(subject, message, from_email, recipient_list)
 
 def home_view(request):
     categories = CategoryModel.objects.all()
@@ -152,7 +164,7 @@ def contacts_view(request):
     return render(request, "contacts.html", context)
 
 
-def login_view(request):
+def auth_view(request):
     if request.method == 'POST':
         username = request.POST.get('name')
         email = request.POST.get('email')
@@ -161,53 +173,55 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
+            if request.session['lang'] == "uz":
+                messages.success(request, "Muaffaqiyatli kirildingiz!")
+            elif request.session['lang'] == "ru":
+                messages.success(request, "Успешно вошли!")
+            elif request.session['lang'] == "en":
+                messages.success(request, "Successfully logged in!")
             return redirect('home')
         else:
-            if request.session['lang'] == "uz":
-                messages.error(request, "Ism yoki email noto'g'ri. Iltimos, qaytadan kiriting.")
-            elif request.session['lang'] == "ru":
-                messages.error(request, "Имя пользователя или адрес электронной почты неверны. Пожалуйста, войдите еще раз.")
-            elif request.session['lang'] == "en":
-                messages.error(request, "Username or email address is incorrect. Please login again.")
+            request.session['username'] = username
+            code = random.randint(1000, 9999)
+            send_email(email, code)
+            request.session['code'] = code
+            request.session['email'] = email
+            return redirect('email_code') 
         
     context = {
         "lang": request.session['lang']
     }
-    return render(request, 'login.html', context)
+    return render(request, 'auth.html', context)
 
-
-def register_view(request):
+def email_code_view(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        user = User.objects.filter(username=name).first()
-        if user:
+        code = request.POST.get('code')
+        original_code = request.session['code']
+        if code != str(original_code):
             if request.session['lang'] == "uz":
-                messages.error(request, "Bunday foydalanuvchi bor!")
+                messages.error(request, "Kod noto'g'ri kiritildi!")
             elif request.session['lang'] == "ru":
-                messages.error(request, "Есть такой пользователь!")
+                messages.error(request, "Неправильно введен код!")
             elif request.session['lang'] == "en":
-                messages.error(request, "There is such a user!")
-        else:
-            user = User.objects.filter(email=email).first()
-            if user:
-                if request.session['lang'] == "uz":
-                    messages.error(request, "Bunday foydalanuvchi bor!")
-                elif request.session['lang'] == "ru":
-                    messages.error(request, "Есть такой пользователь!")
-                elif request.session['lang'] == "en":
-                    messages.error(request, "There is such a user!")
-            else:
-                User.objects.create(
-                    username=name,
-                    email=email)
-
-                return redirect('login')
+                messages.error(request, "Incorrect code entered!")
+            return redirect('email_code')
+        email = request.session['email']
+        username = request.session['username']
+        user = User.objects.create_user(username=username, email=email)
+        user = authenticate(request, username=username, email=email)
+        login(request, user)
+        if request.session['lang'] == "uz":
+            messages.success(request, "Muaffaqiyatli kirildingiz!")
+        elif request.session['lang'] == "ru":
+            messages.success(request, "Успешно вошли!")
+        elif request.session['lang'] == "en":
+            messages.success(request, "Successfully logged in!")
+        return redirect('home')
     context = {
+        "email": request.session.get('email'),
         "lang": request.session['lang']
     }
-    return render(request, "register.html", context)
-
+    return render(request, 'email_code.html', context)
 
 def logout_view(request):
     lang = request.session['lang']
