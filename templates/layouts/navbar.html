@@ -167,11 +167,11 @@
 
             {% if request.user.is_authenticated %}
             {% if lang == "uz" %}
-            <a href="{% url 'logout' %}"><button class="login">Chiqish</button></a>
+            <button id="logout" class="login">Chiqish</button>
             {% elif lang == "ru" %}
-            <a href="{% url 'logout' %}"><button class="login">Выход</button></a>
+            <button id="logout" class="login">Выход</button>
             {% elif lang == "en" %}
-            <a href="{% url 'logout' %}"><button class="login">Log out</button></a>
+            <button id="logout" class="login">Log out</button>
             {% endif %}
             {% else %}
             {% if lang == "uz" %}
@@ -218,3 +218,9 @@
         </div>
     </nav>
 </header>
+
+<div id="logout-div" style="display: none;">
+    <h2>Rostan ham chiqasizmi?</h2>
+    <a href="{% url 'logout' %}" class="btn_0001 yes_or_no">Ha</a>
+    <button id="logout-no" class="btn_0001 yes_or_no">Yo'q</button>
+</div>

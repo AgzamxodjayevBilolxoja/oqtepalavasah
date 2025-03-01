@@ -1125,3 +1125,44 @@ label {
     width: 1120px;
     margin-top: -500px;
 }
+
+.logout-div {
+    position: fixed !important;
+    height: 775px !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: white !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 100px gray !important;
+    z-index: 1241241234324 !important;
+    gap: 20px !important;
+}
+
+body {
+    position: relative;
+}
+
+.logout-div h2 {
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.yes_or_no {
+    width: 300px;
+    height: 100px;
+    background-color: #E52D2B;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    cursor: pointer;
+}
